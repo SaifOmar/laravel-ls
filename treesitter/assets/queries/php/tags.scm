@@ -210,3 +210,47 @@
     ])
   ))
 
+
+; ---------------------------------------------------
+; Blade
+; ---------------------------------------------------
+
+; ---------------------------------------------------
+; Blade Directives (@directive)
+; ---------------------------------------------------
+
+; Captures the '@' symbol and the following identifier/name,
+; which constitutes the start of a Blade directive.
+; NOTE: The effectiveness and specifics might depend on whether
+; you're using a standard PHP grammar or one specifically
+; enhanced or designed for Blade (like tree-sitter-blade).
+; This query attempts a general approach.
+
+(
+  "@" @blade.punctuation  ; Capture the literal "@" token
+  .                       ; Immediately followed by...
+  [                       ; ...either
+    (name)                ; a 'name' node (common in PHP grammar)
+  ] @blade.directive.name ; Capture the node containing the directive's name (if, foreach, etc.)
+)
+
+; --- Alternative / More Specific (If using a Blade-aware grammar) ---
+; If your grammar has specific nodes for Blade directives, queries like these would be more robust:
+;
+; (directive                ; Matches a generic directive node
+;   "@" @blade.punctuation
+;   name: (_) @blade.directive.name
+; )
+;
+; or for specific directives:
+;
+; (if_directive             ; Matches a specific @if directive node
+;   "@" @blade.punctuation
+;   name: (_) @blade.directive.name ; Might capture 'if'
+;   parameters: (_)? @blade.parameters
+; ) @if_directive.structure
+;
+; (endif_directive          ; Matches a specific @endif directive node
+;   "@" @blade.punctuation
+; ) @endif_directive.structure
+

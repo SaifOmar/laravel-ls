@@ -13,6 +13,7 @@ import (
 	"github.com/laravel-ls/laravel-ls/config"
 	appProvider "github.com/laravel-ls/laravel-ls/laravel/providers/app"
 	assetsProvider "github.com/laravel-ls/laravel-ls/laravel/providers/assets"
+	bladeProvider "github.com/laravel-ls/laravel-ls/laravel/providers/blade"
 	configProvider "github.com/laravel-ls/laravel-ls/laravel/providers/config"
 	envProvider "github.com/laravel-ls/laravel-ls/laravel/providers/env"
 	viewProvider "github.com/laravel-ls/laravel-ls/laravel/providers/view"
@@ -82,6 +83,7 @@ func run(cmd *cobra.Command, args []string) error {
 		assetsProvider.NewProvider(),
 		appProvider.NewProvider(),
 		configProvider.NewProvider(),
+		bladeProvider.NewProvider(),
 	)
 
 	defer treesitter.FreeQueryCache()
